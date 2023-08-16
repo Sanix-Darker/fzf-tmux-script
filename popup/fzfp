@@ -12,7 +12,13 @@ if [[ -n $TMUX_POPUP_NESTED_FB ]]; then
     eval "$TMUX_POPUP_NESTED_FB" && exec fzf "$@"
 fi
 
-tmux -V | awk '{match($0, /[0-9]+\.[0-9]+/, m);exit m[0]<3.2}' || exec fzf "$@"
+# this is just responsible to check if the my tmux version is up to date, to have
+# my error fixe:
+# awk: line 1: syntax error at or near ,
+# i just need to comment it
+# tmux -V | awk '{match($0, /[0-9]+\.[0-9]+/, m);exit m[0]<3.2}' || exec fzf "$@"
+
+exec fzf "$@"
 
 args=('--no-height')
 while (($#)); do
